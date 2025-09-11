@@ -46,6 +46,7 @@ define(['knockout', 'ojs/ojcontext', 'ojs/ojmodule-element-utils', 'ojs/ojknocko
         { path: '', redirect: 'login' },
         { path: 'login', detail: { label: 'Login', iconClass: 'oj-ux-ico-person' } },
         { path: 'register', detail: { label: 'Register', iconClass: 'oj-ux-ico-plus' } },
+        { path: 'dashboard', detail: { label: 'Dashboard', iconClass: 'oj-ux-ico-bar-chart' } },
       ];
 
       // Router setup

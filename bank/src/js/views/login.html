@@ -1,11 +1,17 @@
 <div class="oj-hybrid-padding"
   style="max-width:450px; margin:auto; padding:30px; background:#fff; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1)">
-  <h2 style="text-align:center; color:#2c3e50; margin-bottom:20px">Login</h2>
+  <h2 style="text-align:center; color:#2c3e50; margin-bottom:20px">Smart Bank – Login</h2>
 
   <oj-form-layout max-columns="1" direction="row" class="oj-formlayout-full-width" user-assistance-density="compact">
 
-    <oj-input-text value="{{username}}" label-hint="Username" required="true"></oj-input-text>
+    <!-- <oj-input-text value="{{username}}" label-hint="Username" required="true"></oj-input-text> -->
+     <oj-input-text value="{{identifier}}" label-hint="Username / Email / Mobile" required="true"></oj-input-text>
     <oj-input-password value="{{password}}" label-hint="Password" required="true"></oj-input-password>
+
+
+        <!-- reCAPTCHA container -->
+    <div id="recaptcha-container" style="margin:15px 0; text-align:center;"></div>
+
 
     <oj-button on-oj-action="[[login]]"
       style="margin-top:20px; width:100%; background:#1976d2; color:white">
@@ -18,7 +24,7 @@
   </div>
 
   <p style="text-align:center; margin-top:10px;">
-    Don't have an account?
+    Don’t have an account?
     <a href="#/register" style="color:#1976d2; text-decoration:none;">Register here</a>
   </p>
 </div>

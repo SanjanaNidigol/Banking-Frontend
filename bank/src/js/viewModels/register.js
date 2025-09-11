@@ -35,13 +35,40 @@ define([
     self.mobile = ko.observable('');
     self.email = ko.observable('');
     self.password = ko.observable('');
-    self.mpin = ko.observable('');
+    // self.mpin = ko.observable('');
     self.address = ko.observable('');
     self.state = ko.observable('');
     self.pincode = ko.observable('');
     self.country = ko.observable('');
     self.selectedGender = ko.observable('');
     self.message = ko.observable('');
+
+
+    self.beforeSelectStep = function(event) {
+  const nextStep = event.detail.value; // Step user clicked
+  const currentStepId = self.currentStep();
+
+  // Only block if moving forward
+  const currentIndex = self.trainSteps.findIndex(s => s.id === currentStepId);
+  const nextIndex = self.trainSteps.findIndex(s => s.id === nextStep);
+
+  if (nextIndex > currentIndex) {
+    const groupId = currentStepId + 'Group';
+    const groupElem = document.getElementById(groupId);
+
+    if (groupElem) {
+      // This will trigger validation
+      groupElem.validate();
+      const tracker = groupElem.valid === 'valid' ? 'valid' : 'invalid';
+
+      if (tracker !== 'valid') {
+        event.preventDefault(); // stop the train navigation
+        self.message("⚠️ Please complete current step before moving forward");
+      }
+    }
+  }
+};
+
 
     self.mobileValidator = [
       new RegExpValidator({
@@ -73,14 +100,14 @@ define([
           "Password must be 8+ chars with uppercase, lowercase, number & special char."
       })
     ];
-    self.mpinValidator = [
-      new RegExpValidator({
-        pattern: "^\\d{6}$",
-        hint: "Enter 6 digit PIN",
-        messageSummary: "Invalid MPIN",
-        messageDetail: "MPIN must be exactly 6 digits."
-      })
-    ];
+    // self.mpinValidator = [
+    //   new RegExpValidator({
+    //     pattern: "^\\d{6}$",
+    //     hint: "Enter 6 digit PIN",
+    //     messageSummary: "Invalid MPIN",
+    //     messageDetail: "MPIN must be exactly 6 digits."
+    //   })
+    // ];
 
     self.genderOptions = [
       { value: 'Male', label: 'Male' },
@@ -88,6 +115,45 @@ define([
       { value: 'Others', label: 'Others' }
     ];
     self.genderDataProvider = new ArrayDataProvider(self.genderOptions, { keyAttributes: 'value' });
+
+
+//     self.beforeSelectStep = function(event) {
+//   console.log("🚦 Train before-select triggered");
+//   console.log("Event detail:", event.detail); // <-- add this
+//   const nextStep = event.detail.value;
+//   console.log("Next step ID:", nextStep);
+
+//   if (!nextStep) {
+//     console.warn("⚠️ Next step is undefined, stopping navigation");
+//     event.preventDefault(); // Block just in case
+//     return;
+//   }
+
+//   const currentStepId = self.currentStep();
+//   const currentIndex = self.trainSteps.findIndex(s => s.id === currentStepId);
+//   const nextIndex = self.trainSteps.findIndex(s => s.id === nextStep);
+
+//   console.log("Current step:", currentStepId, "Next step:", nextStep);
+//   console.log("Current index:", currentIndex, "Next index:", nextIndex);
+
+//   if (nextIndex > currentIndex) {
+//     const groupId = currentStepId + 'Group';
+//     const groupElem = document.getElementById(groupId);
+
+//     if (groupElem) {
+//       groupElem.validate();
+//       const tracker = groupElem.valid;
+//       console.log("Validation result:", tracker);
+
+//       if (tracker !== 'valid') {
+//         console.warn("❌ Validation failed. Blocking navigation.");
+//         event.preventDefault();
+//         self.message("⚠️ Please complete current step before moving forward");
+//       }
+//     }
+//   }
+// };
+
 
     self.trainSteps = [
       { id: 'personal', label: 'Personal Info' },
@@ -109,6 +175,8 @@ define([
       const group = document.getElementById(stepId + 'Group');
       if (group) {
         const tracker = group.getProperty("valid");
+        // const tracker = group.valid;
+
         if (tracker === "valid") {
           return true;
         } else {
@@ -136,6 +204,8 @@ define([
       }
     };
 
+
+    
     self.submitForm = async function () {
       let lastStepId = self.trainSteps[self.trainSteps.length - 1].id;
       if (!validateStep(lastStepId)) {
@@ -159,7 +229,7 @@ define([
         mobile: self.mobile(),
         email: self.email(),
         password: self.password(),
-        mpin: self.mpin(),
+        // mpin: self.mpin(),
         address: self.address(),
         state: self.state(),
         pincode: self.pincode(),
@@ -167,7 +237,7 @@ define([
         gender: self.selectedGender()
       };
 
-      console.log("🔹 Payload to send:", payload);
+      console.log("Payload to send:", payload);
       self.message("Sending registration request...");
 
       try {
@@ -178,12 +248,12 @@ define([
         });
 
         const responseText = await response.text();
-        console.log("🔹 API response status:", response.status);
-        console.log("🔹 API response text:", responseText);
+        console.log("API response status:", response.status);
+        console.log("API response text:", responseText);
 
-        self.message("Registration completed successfully! Please check your email.");
         
-        console.log("➡️ Trying to navigate to login page...");
+        
+        console.log("Trying to navigate to login page...");
         console.log("CoreRouter.instance:", CoreRouter.instance);
 
         setTimeout(() => {
@@ -193,17 +263,15 @@ define([
           } else {
             console.error("CoreRouter.instance is undefined! Navigation failed.");
           }
-        }, 1500);
+        }, 1000);
 
         if (!response.ok) {
           self.message("Registration failed: " + responseText);
           return;
         }
 
-
-
       } catch (err) {
-        console.error("🔹 Error during registration:", err);
+        console.error("Error during registration:", err);
         self.message("Error occurred while registering");
       }
     };

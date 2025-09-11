@@ -1,30 +1,40 @@
 <!DOCTYPE html>
-<!--
- Copyright (c) 2014, 2025, Oracle and/or its affiliates.
- Licensed under The Universal Permissive License (UPL), Version 1.0
- as shown at https://oss.oracle.com/licenses/upl/
- -->
+<html lang="en-us">
 
-<!-- ************************ IMPORTANT INFORMATION ************************************
-  This web navigation drawer template is provided as an example of how to configure
-  a JET web application with a navigation drawer as a single page application
-  using ojRouter and oj-module.  It contains the Oracle JET framework and a default
-  requireJS configuration file to show how JET can be setup in a common application.
-  This project template can be used in conjunction with demo code from the JET
-  website to test JET component behavior and interactions.
+<head>
+  <title>Smart Bank App</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  Any CSS styling with the prefix "demo-" is for demonstration only and is not
-  provided as part of the JET framework.
+  <!-- Theme placeholder for Oracle JET -->
+  <!-- injector:theme -->
+  <!-- endinjector -->
 
-  Please see the demos under Cookbook/Patterns/App Shell: Web and the CSS documentation
-  under Support/API Docs/Non-Component Styling on the JET website for more information on how to use
-  the best practice patterns shown in this template.
+  <!-- Your custom styles -->
+  <link rel="stylesheet" href="css/app.css" type="text/css" />
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-  Aria Landmark role attributes are added to the different sections of the application
-  for accessibility compliance. If you change the type of content for a specific
-  section from what is defined, you should also change the role value for that
-  section to represent the appropriate content type.
-  ***************************** IMPORTANT INFORMATION ************************************ -->
+</head>
+
+<body class="oj-web-applayout-body">
+  <div id="globalBody">
+
+    <!-- Main content rendered via oj-module -->
+    <oj-module role="main" class="oj-web-applayout-content"
+      config="[[moduleAdapter.koObservableConfig]]">
+    </oj-module>
+
+  </div>
+
+  <!-- Script placeholder for Oracle JET -->
+  <!-- injector:scripts -->
+  <!-- endinjector -->
+</body>
+
+</html>
+
+
+<!-- <!DOCTYPE html>
 <html lang="en-us">
 
 <head>
@@ -32,7 +42,7 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
-  <link rel="icon" href="css/images/JET-Favicon-Red-32x32.png" type="image/x-icon" />
+  <link rel="icon" href="css/images/JET-Favicon-Red-32x32.png" type="image/x-icon" /> -->
 
   <!-- This is the main css file for the default theme -->
   <!-- injector:theme -->
@@ -43,12 +53,11 @@
   <!-- endinjector:font -->
 
   <!-- This is where you would add any app specific styling -->
-  <link rel="stylesheet" href="css/app.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="css/app.css" type="text/css" />
 
 </head>
 
 <body class="oj-web-applayout-body">
-  <!-- Template for rendering navigation items shared between nav bar and nav list -->
   <script type="text/html" id="navTemplate">
       <li><a href="#">
         <span :class="[[$data.detail.iconClass]]"></span>
@@ -70,15 +79,8 @@
       </oj-navigation-list>
     </oj-drawer-popup>
     <div id="pageContent" class="oj-web-applayout-page">
-      <!--
-           ** Oracle JET V18.1.0 web application header pattern.
-           ** Please see the demos under Cookbook/Patterns/App Shell: Web
-           ** and the CSS documentation under Support/API Docs/Non-Component Styling
-           ** on the JET website for more information on how to use this pattern.
-        -->
       <header role="banner" class="oj-web-applayout-header">
         <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
-          <!-- Drawer toggle button -->
           <div class="oj-flex-bar-start oj-md-hide">
             <oj-button id="drawerToggleButton" class="oj-button-lg" on-oj-action="[[toggleDrawer]]"
               chroming="borderless" display="icons">
@@ -92,7 +94,6 @@
                 value="[[appName]]"></oj-bind-text></h1>
           </div>
           <div class="oj-flex-bar-end">
-            <!-- Responsive Toolbar -->
             <oj-toolbar>
               <oj-menu-button id="userMenu" display="[[smScreen() ? 'icons' : 'all']]" chroming="borderless">
                 <span><oj-bind-text value="[[userLogin]]"></oj-bind-text></span>
@@ -138,12 +139,12 @@
         </div>
       </footer>
     </div>
-  </div>
+  </div> -->
 
   <!-- This injects script tags for the main javascript files -->
   <!-- injector:scripts -->
   <!-- endinjector -->
 
-</body>
+<!-- </body>
 
-</html>
+</html> -->
