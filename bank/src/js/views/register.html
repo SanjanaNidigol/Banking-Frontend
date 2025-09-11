@@ -1,0 +1,70 @@
+<div class="oj-hybrid-padding"
+  style="max-width:750px; margin:auto; padding:30px; background:#fff; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1)">
+
+  <h2 style="text-align:center; color:#2c3e50; margin-bottom:20px">Smart Bank - Register</h2>
+
+  <!-- oj-train navigation -->
+  <oj-train id="train" steps="[[trainSteps]]" selected-step="{{currentStep}}"></oj-train>
+
+  <!-- Step 1: Personal Info -->
+  <div data-bind="if: currentStep() === 'personal'">
+    <oj-validation-group id="personalGroup">
+      <oj-form-layout max-columns="2" direction="row">
+        <oj-input-text value="{{firstName}}" label-hint="First Name" required="true"></oj-input-text>
+        <oj-input-text value="{{lastName}}" label-hint="Last Name" required="true"></oj-input-text>
+        <oj-input-date value="{{dob}}" label-hint="Date of Birth" required="true"></oj-input-date>
+        <oj-select-single id="genderSelect" label-hint="Gender" data="[[genderDataProvider]]" value="{{selectedGender}}"
+          required="true"></oj-select-single>
+        <oj-input-text value="{{mobile}}" label-hint="Mobile Number" required="true"
+          validators="[[mobileValidator]]"></oj-input-text>
+        <oj-input-text value="{{email}}" label-hint="Email" required="true"
+          validators="[[emailValidator]]"></oj-input-text>
+        <oj-input-text value="{{pan}}" label-hint="PAN" required validators="[[panValidators]]"></oj-input-text>
+        <oj-input-text value="{{username}}" label-hint="Username" required="true"></oj-input-text>
+      </oj-form-layout>
+    </oj-validation-group>
+  </div>
+
+  <!-- Step 2: Address & Finish -->
+  <div data-bind="if: currentStep() === 'addressFinish'">
+    <oj-validation-group id="addressGroup">
+      <oj-form-layout max-columns="2" direction="row">
+        <oj-input-text value="{{address}}" label-hint="Address" required="true"></oj-input-text>
+        <oj-input-text value="{{state}}" label-hint="State" required="true"></oj-input-text>
+        <oj-input-text value="{{pincode}}" label-hint="Pincode" required="true"></oj-input-text>
+        <oj-input-text value="{{country}}" label-hint="Country" required="true"></oj-input-text>
+      </oj-form-layout>
+    </oj-validation-group>
+  </div>
+
+  <!-- Step 3: Account & Security -->
+  <div data-bind="if: currentStep() === 'accountSecurity'">
+    <oj-validation-group id="accountSecurityGroup">
+      <oj-form-layout max-columns="2" direction="row">
+        <oj-input-password value="{{password}}" label-hint="Password" required
+          validators="[[passwordValidator]]"></oj-input-password>
+        <oj-input-password value="{{mpin}}" label-hint="MPIN" required
+          validators="[[mpinValidator]]"></oj-input-password>
+      </oj-form-layout>
+    </oj-validation-group>
+  </div>
+
+  <!-- Navigation buttons -->
+  <div style="margin-top:20px; display:flex; justify-content:space-between; align-items:center;">
+    <div>
+      <oj-button on-oj-action="[[prevStep]]" data-bind="visible: !isFirstStep()">
+        ⬅ Previous
+      </oj-button>
+    </div>
+    <div>
+      <oj-button on-oj-action="[[nextStep]]" data-bind="visible: !isLastStep()">
+        Next ➡
+      </oj-button>
+
+      <oj-button on-oj-action="[[submitForm]]" data-bind="visible: isLastStep" 
+        style="background:#1976d2; color:white">
+        Submit
+      </oj-button>
+    </div>
+  </div>
+</div>
