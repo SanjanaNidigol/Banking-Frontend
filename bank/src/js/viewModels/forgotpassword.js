@@ -35,6 +35,22 @@ define([
         self.message = ko.observable('');
         self.error = ko.observable('');
 
+         self.maskedEmail = ko.computed(function() {
+            const email = self.email();
+            if (!email) return '';
+            
+            const [username, domain] = email.split('@');
+            if (!username || !domain) return email;
+            
+            // Show first 2 chars, mask middle, show last char before @
+            const maskedUsername = username.length <= 3 
+                ? username[0] + '*'.repeat(username.length - 1)
+                : username.substring(0, 2) + '*'.repeat(username.length - 3) + username.slice(-1);
+            
+            return maskedUsername + '@' + domain;
+        });
+
+
         self.newPasswordValidator = [
             new RegExpValidator({
                 pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
@@ -86,7 +102,7 @@ define([
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         email: self.email(),
-                        mobile: self.mobile()   // ✅ include mobile
+                        mobile: self.mobile()   
                     })
                 });
 
@@ -104,7 +120,7 @@ define([
                     return;
                 }
 
-                self.message(data.message || "Reset code sent to your email.");
+                // self.message(data.message || "Reset code sent to your email.");
                 self.currentStep('verify');
 
             } catch (err) {
@@ -142,7 +158,7 @@ define([
                     return;
                 }
 
-                self.message(data.message || "Code verified successfully.");
+                // self.message(data.message || "Code verified successfully.");
                 self.currentStep('reset');
 
             } catch (err) {

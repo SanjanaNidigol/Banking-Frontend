@@ -1,0 +1,35 @@
+<div class="oj-hybrid-padding" style="max-width:900px; margin:auto;">
+  <h2 style="color:#1976d2; margin-bottom:20px;">📜 Transaction History</h2>
+
+  <!-- JET Table -->
+  <oj-table
+    aria-label="Transaction History"
+    data="[[transactionsDataProvider]]"
+    selection-mode.row="single"
+    style="width:100%; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.1)">
+    
+    <oj-table-column header-text="Date" sort="enabled">
+      <template slot="cellTemplate" data-oj-as="cell">
+        <span data-bind="text: cell.data"></span>
+      </template>
+    </oj-table-column>
+
+    <oj-table-column header-text="Type" sort="enabled">
+      <template slot="cellTemplate" data-oj-as="cell">
+        <span data-bind="text: cell.data"></span>
+      </template>
+    </oj-table-column>
+
+    <oj-table-column header-text="Amount" sort="enabled">
+      <template slot="cellTemplate" data-oj-as="cell">
+        <span data-bind="text: cell.data"></span>
+      </template>
+    </oj-table-column>
+
+    <oj-table-column header-text="Balance" sort="enabled">
+      <template slot="cellTemplate" data-oj-as="cell">
+        <span data-bind="text: cell.data"></span>
+      </template>
+    </oj-table-column>
+  </oj-table>
+</div>

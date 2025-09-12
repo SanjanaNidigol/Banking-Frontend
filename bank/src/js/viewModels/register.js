@@ -35,6 +35,7 @@ define([
     self.mobile = ko.observable('');
     self.email = ko.observable('');
     self.password = ko.observable('');
+    self.confirmPassword = ko.observable('');
     // self.mpin = ko.observable('');
     self.address = ko.observable('');
     self.state = ko.observable('');
@@ -42,7 +43,23 @@ define([
     self.country = ko.observable('');
     self.selectedGender = ko.observable('');
     self.message = ko.observable('');
+    self.error = ko.observable('');
 
+     self.passwordsMatch = ko.computed(function() {
+      return self.password() === self.confirmPassword() && 
+             self.password() !== '' && 
+             self.confirmPassword() !== '';
+    });
+
+    self.passwordMatchError = ko.computed(function() {
+      if (self.confirmPassword() === '') return '';
+      return self.passwordsMatch() ? '' : 'Passwords do not match';
+    });
+
+    // Disable submit button if passwords don't match
+    self.canSubmit = ko.computed(function() {
+      return self.passwordsMatch() && self.isLastStep();
+    });
 
     self.beforeSelectStep = function(event) {
   const nextStep = event.detail.value; // Step user clicked
@@ -63,7 +80,7 @@ define([
 
       if (tracker !== 'valid') {
         event.preventDefault(); // stop the train navigation
-        self.message("⚠️ Please complete current step before moving forward");
+        self.message("Please complete current step before moving forward");
       }
     }
   }
@@ -100,6 +117,16 @@ define([
           "Password must be 8+ chars with uppercase, lowercase, number & special char."
       })
     ];
+
+     self.confirmPasswordValidator = [
+      new RegExpValidator({
+        pattern: this.password,
+        // hint: "P",
+        messageSummary: "Invalid Password",
+        messageDetail:
+          "Password doesn't match"
+      })
+    ];
     // self.mpinValidator = [
     //   new RegExpValidator({
     //     pattern: "^\\d{6}$",
@@ -117,51 +144,11 @@ define([
     self.genderDataProvider = new ArrayDataProvider(self.genderOptions, { keyAttributes: 'value' });
 
 
-//     self.beforeSelectStep = function(event) {
-//   console.log("🚦 Train before-select triggered");
-//   console.log("Event detail:", event.detail); // <-- add this
-//   const nextStep = event.detail.value;
-//   console.log("Next step ID:", nextStep);
-
-//   if (!nextStep) {
-//     console.warn("⚠️ Next step is undefined, stopping navigation");
-//     event.preventDefault(); // Block just in case
-//     return;
-//   }
-
-//   const currentStepId = self.currentStep();
-//   const currentIndex = self.trainSteps.findIndex(s => s.id === currentStepId);
-//   const nextIndex = self.trainSteps.findIndex(s => s.id === nextStep);
-
-//   console.log("Current step:", currentStepId, "Next step:", nextStep);
-//   console.log("Current index:", currentIndex, "Next index:", nextIndex);
-
-//   if (nextIndex > currentIndex) {
-//     const groupId = currentStepId + 'Group';
-//     const groupElem = document.getElementById(groupId);
-
-//     if (groupElem) {
-//       groupElem.validate();
-//       const tracker = groupElem.valid;
-//       console.log("Validation result:", tracker);
-
-//       if (tracker !== 'valid') {
-//         console.warn("❌ Validation failed. Blocking navigation.");
-//         event.preventDefault();
-//         self.message("⚠️ Please complete current step before moving forward");
-//       }
-//     }
-//   }
-// };
-
-
     self.trainSteps = [
       { id: 'personal', label: 'Personal Info' },
-      { id: 'addressFinish', label: 'Address & Finish' },
+      { id: 'addressFinish', label: 'Address Info' },
       { id: 'accountSecurity', label: 'Account & Security' }
     ];
-    self.currentStep = ko.observable('personal');
-
     self.currentStep = ko.observable('personal');
 
     self.isFirstStep = ko.pureComputed(
@@ -207,6 +194,12 @@ define([
 
     
     self.submitForm = async function () {
+       self.message('');
+      self.error('');
+ if (!self.passwordsMatch()) {
+        self.error("Passwords do not match. Please check and try again.");
+        return;
+      }
       let lastStepId = self.trainSteps[self.trainSteps.length - 1].id;
       if (!validateStep(lastStepId)) {
         self.message("Please fix errors before submitting");
@@ -229,6 +222,7 @@ define([
         mobile: self.mobile(),
         email: self.email(),
         password: self.password(),
+        confirmPassword: self.confirmPassword(),
         // mpin: self.mpin(),
         address: self.address(),
         state: self.state(),
@@ -237,6 +231,10 @@ define([
         gender: self.selectedGender()
       };
 
+       if (self.password() !== self.confirmPassword()) {
+                self.error("Passwords do not match.");
+                return;
+            }
       console.log("Payload to send:", payload);
       self.message("Sending registration request...");
 
@@ -267,12 +265,14 @@ define([
 
         if (!response.ok) {
           self.message("Registration failed: " + responseText);
+          self.message('')
           return;
         }
 
       } catch (err) {
         console.error("Error during registration:", err);
         self.message("Error occurred while registering");
+        self.message('')
       }
     };
   }

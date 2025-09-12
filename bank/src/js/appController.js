@@ -46,8 +46,11 @@ define(['knockout', 'ojs/ojcontext', 'ojs/ojmodule-element-utils', 'ojs/ojknocko
         { path: '', redirect: 'login' },
         { path: 'login', detail: { label: 'Login', iconClass: 'oj-ux-ico-person' } },
         { path: 'register', detail: { label: 'Register', iconClass: 'oj-ux-ico-plus' } },
-        { path: 'dashboard', detail: { label: 'Dashboard', iconClass: 'oj-ux-ico-bar-chart' } },
-        { path: 'forgotpassword', detail: { label: 'Forgot Password', iconClass:'oj-ux-ico-bar-chart'}}
+        { path: 'home', detail: { label: 'Home', iconClass: 'oj-ux-ico-bar-chart' } },
+        { path: 'forgotpassword', detail: { label: 'Forgot Password', iconClass:'oj-ux-ico-bar-chart'}},
+        { path: 'transaction', detail: { label: 'Transaction', iconClass:'oj-ux-ico-bar-chart'}},
+        { path: 'transaction-history', detail: { label: 'Transaction History', iconClass:'oj-ux-ico-bar-chart'}},
+        { path: 'create-account', detail: { label: 'Create Account', iconClass:'oj-ux-ico-bar-chart'}}
         // { path: 'forgotpassword', detail: { label: 'Forgot Password', iconClass: 'oj-ux-ico-information-s' } },
       ];
 

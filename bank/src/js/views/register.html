@@ -1,40 +1,35 @@
 <div class="oj-hybrid-padding"
-  style="max-width:750px; margin:auto; padding:30px; background:#fff; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1)">
+  style="max-width:750px; margin:auto;  padding:10px 25px 0px 25px; background:#fff; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1)">
 
-  <h2 style="text-align:center; color:#2c3e50; margin-bottom:20px">Create Your Smart Bank Profile</h2>
+  <h3 style="text-align:center; color:#2c3e50; margin-bottom:0px">Create Your SmartBank Profile</h3>
 
   <!-- oj-train navigation -->
   <oj-train id="train" steps="[[trainSteps]]" selected-step="{{currentStep}}"></oj-train>
-
-<!-- <oj-train id="train"
-          steps="[[trainSteps]]"
-          selected-step="{{currentStep}}"
-          on-oj-before-select="[[beforeSelectStep]]">
-</oj-train> -->
-
   
-  <!-- Step 1: Personal Info -->
+
   <div data-bind="if: currentStep() === 'personal'">
     <oj-validation-group id="personalGroup">
-      <oj-form-layout max-columns="2" direction="row">
-        
+      <oj-form-layout max-columns="2" direction="row" 
+      
+      >
+      <!-- class="oj-formlayout-full-width" user-assistance-density="compact" -->
+
         <oj-input-text value="{{username}}" label-hint="Username" required="true"></oj-input-text>
         <oj-input-text value="{{pan}}" label-hint="PAN" required validators="[[panValidators]]"></oj-input-text>
         <oj-input-text value="{{firstName}}" label-hint="First Name" required="true"></oj-input-text>
         <oj-input-text value="{{lastName}}" label-hint="Last Name" required="true"></oj-input-text>
-       <oj-input-text value="{{mobile}}" label-hint="Mobile Number" required="true"
+        <oj-input-text value="{{mobile}}" label-hint="Mobile Number" required="true"
           validators="[[mobileValidator]]"></oj-input-text>
         <oj-input-text value="{{email}}" label-hint="Email" required="true"
           validators="[[emailValidator]]"></oj-input-text>
-           <oj-input-date value="{{dob}}" label-hint="Date of Birth" required="true"></oj-input-date>
+        <oj-input-date value="{{dob}}" label-hint="Date of Birth" required="true"></oj-input-date>
         <oj-select-single id="genderSelect" label-hint="Gender" data="[[genderDataProvider]]" value="{{selectedGender}}"
           required="true"></oj-select-single>
-        
+
       </oj-form-layout>
     </oj-validation-group>
   </div>
 
-  <!-- Step 2: Address & Finish -->
   <div data-bind="if: currentStep() === 'addressFinish'">
     <oj-validation-group id="addressGroup">
       <oj-form-layout max-columns="2" direction="row">
@@ -46,20 +41,20 @@
     </oj-validation-group>
   </div>
 
-  <!-- Step 3: Account & Security -->
   <div data-bind="if: currentStep() === 'accountSecurity'">
     <oj-validation-group id="accountSecurityGroup">
       <oj-form-layout max-columns="2" direction="row">
         <oj-input-password value="{{password}}" label-hint="Password" required
           validators="[[passwordValidator]]"></oj-input-password>
+        <oj-input-password value="{{confirmPassword}}" label-hint="Confirm Password"
+          required="true"validators="[[confirmPasswordValidator]]" ></oj-input-password>
         <!-- <oj-input-password value="{{mpin}}" label-hint="MPIN" required
           validators="[[mpinValidator]]"></oj-input-password> -->
       </oj-form-layout>
     </oj-validation-group>
   </div>
 
-  <!-- Navigation buttons -->
-  <div style="margin-top:20px; display:flex; justify-content:space-between; align-items:center;">
+  <div style="margin-top:0px; display:flex; justify-content:space-between; align-items:center;">
     <div>
       <oj-button on-oj-action="[[prevStep]]" data-bind="visible: !isFirstStep()">
         ⬅ Previous
@@ -70,17 +65,20 @@
         Next ➡
       </oj-button>
 
-      <oj-button on-oj-action="[[submitForm]]" data-bind="visible: isLastStep" 
-        style="background:#1976d2; color:white">
+      <oj-button on-oj-action="[[submitForm]]" data-bind="visible: isLastStep" style="background:#1976d2; color:white">
         Submit
       </oj-button>
+
+
     </div>
+  </div>
+  <div style="text-align:center;  padding:0px 0px 20px 0px">
+    <p>Already have an account?
+      <a href="/?ojr=login" style="font-size: 18px; 
+        color:#1976d2; text-decoration:underline;">Login</a>
+    </p>
   </div>
 </div>
 
-  <div style="text-align:center; margin-top:10px;">
-    <p>Already have an account? 
-      <a href="#/login">Login here</a>
-    </p>
-  </div>
+
 </div>

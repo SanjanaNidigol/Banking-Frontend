@@ -1,0 +1,78 @@
+<div style="max-width:900px; margin:auto; padding:20px; font-family:Arial, sans-serif;">
+  <!-- Top Bar -->
+  <div
+    style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; background:#1976d2; color:white; padding:15px; border-radius:10px;">
+    <h2 style="margin:0; font-size:24px;">🏦 MyBank Dashboard</h2>
+    <div style="font-size:16px;">
+      Welcome, <span data-bind="text: username"></span> 👋
+    </div>
+
+    <!-- <div style="font-size:16px;">Welcome, <span data-bind="text: fullName"></span> 👋</div> -->
+  </div>
+
+  <!-- Option Cards -->
+  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:20px;">
+
+    <!-- Set MPIN -->
+    <a href="/?ojr=set-mpin" class="option-card">
+      <div style="font-size:40px; text-align:center;">🔑</div>
+      <div style="text-align:center; font-weight:bold; margin-top:10px;">Set MPIN</div>
+    </a>
+
+    <!-- Create Account -->
+    <a href="/?ojr=create-account" class="option-card">
+      <div style="font-size:40px; text-align:center;">📝</div>
+      <div style="text-align:center; font-weight:bold; margin-top:10px;">Create Account</div>
+    </a>
+
+    <!-- Make Transaction -->
+    <a href="/?ojr=transaction" class="option-card">
+      <div style="font-size:40px; text-align:center;">💸</div>
+      <div style="text-align:center; font-weight:bold; margin-top:10px;">Transaction</div>
+    </a>
+
+    <!-- Transaction History -->
+    <a href="/?ojr=transaction-history" class="option-card">
+      <div style="font-size:40px; text-align:center;">📜</div>
+      <div style="text-align:center; font-weight:bold; margin-top:10px;">Transaction History</div>
+    </a>
+
+    <!-- Logout link -->
+    <a href="javascript:void(0);" class="option-card" data-bind="click: confirmLogout">
+      <div style="font-size:40px; text-align:center;">🚪</div>
+      <div style="text-align:center; font-weight:bold; margin-top:10px;">Logout</div>
+    </a>
+
+    <!-- Logout Confirmation Dialog -->
+    <oj-dialog id="logoutDialog" dialog-title="Confirm Logout" modality="modal" cancel-behavior="icon">
+      <div slot="body">
+        <p>Are you sure you want to logout?</p>
+      </div>
+      <div slot="footer">
+        <oj-button id="cancelLogout" on-oj-action="[[cancelLogout]]">Cancel</oj-button>
+        <oj-button id="confirmLogout" chroming="danger" on-oj-action="[[doLogout]]">Yes, Logout</oj-button>
+      </div>
+    </oj-dialog>
+
+
+  </div>
+</div>
+
+<style>
+  .option-card {
+    background: #F5F5F5;
+    padding: 30px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .option-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    background: #E3F2FD;
+  }
+</style>

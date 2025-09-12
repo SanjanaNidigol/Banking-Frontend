@@ -16,11 +16,11 @@ define([
     self.message = ko.observable('');
     self.captchaWidgetId = null;
 
-     // Initialize CAPTCHA when the view is loaded
+    // Initialize CAPTCHA when the view is loaded
     self.initCaptcha = function () {
       if (typeof grecaptcha !== "undefined" && self.captchaWidgetId === null) {
         self.captchaWidgetId = grecaptcha.render('recaptcha-container', {
-          'sitekey': '6LcXHcYrAAAAAGT87UJ6MsBva8hxeRcL_tj51ZJ8', // Google test site key
+          'sitekey': '6LcXHcYrAAAAAGT87UJ6MsBva8hxeRcL_tj51ZJ8',
           'theme': 'light'
         });
       }
@@ -78,9 +78,16 @@ define([
         const data = JSON.parse(responseText);
         console.log("API Response Data:", data);
 
-        
+
         sessionStorage.setItem("authUser", JSON.stringify(data));
         // localStorage.setItem("authUser", JSON.stringify(data));
+        sessionStorage.setItem("userId", data.id);
+        sessionStorage.setItem("firstName", data.firstName || '');
+        sessionStorage.setItem("lastName", data.lastName || '');
+        sessionStorage.setItem("username", data.username);
+        sessionStorage.setItem("email", data.email);
+        sessionStorage.setItem("mobile", data.mobile);
+        sessionStorage.setItem("role", data.role)
 
         self.message("Logged in successfully!");
 
@@ -90,8 +97,8 @@ define([
         // Redirect to dashboard after 1.5 sec
         setTimeout(() => {
           // window.location.href = "#/dashboard";
-           CoreRouter.instance.go({ path: "dashboard" });
-        }, 1000);
+          CoreRouter.instance.go({ path: "home" });
+        }, 500);
 
       } catch (err) {
         console.error("API Request Failed:", err);

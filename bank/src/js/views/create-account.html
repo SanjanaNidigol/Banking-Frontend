@@ -1,0 +1,86 @@
+<style>
+  .form-card {
+    max-width: 450px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-card h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: #2C3E50;
+  }
+
+  .step-content {
+    margin-top: 20px;
+  }
+
+  .full-width-btn {
+    width: 100%;
+  }
+
+  .error-msg {
+    color: red;
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+    font-weight: 500;
+  }
+</style>
+<div class="form-card" >
+  <oj-train id="accountTrain" steps="[[trainSteps]]" selected-step="{{stepValue}}"
+    on-selected-step-changed="[[handleTrainStepChange]]">
+    <oj-train-step id="step1" label="Account Details"></oj-train-step>
+    <oj-train-step id="step2" label="Set PIN"></oj-train-step>
+    <oj-train-step id="step3" label="Review & Submit"></oj-train-step>
+  </oj-train>
+
+  <!-- Step 1 -->
+<div class="step-content" data-bind="if: stepValue() === 'step1'">
+  <h2>Account Details</h2>
+  <oj-form-layout label-edge="start" max-columns="1">
+    <oj-select-single id="accountTypeSelect" label-hint="Account Type" data="[[accountTypeDataProvider]]"
+      value="{{selectedAccountType}}" required="true">
+    </oj-select-single>
+    <oj-input-number value="{{balance}}" label-hint="Initial Balance (Optional)"></oj-input-number>
+  </oj-form-layout>
+
+  <!-- Buttons container with flex -->
+  <div style="display:flex; justify-content:flex-end; margin-top:20px;">
+    <oj-button data-bind="click: goToNextStep">Next</oj-button>
+  </div>
+
+  <span class="error-msg" data-bind="text: message"></span>
+</div>
+
+<!-- Step 2 -->
+<div class="step-content" data-bind="if: stepValue() === 'step2'">
+  <h2>Set Your PIN</h2>
+  <oj-form-layout label-edge="start" max-columns="1">
+    <oj-input-password id="pin" value="{{pin}}" label-hint="Set PIN" required="true"
+      validators="[[mpinValidator]]"></oj-input-password>
+    <oj-input-password id="confirmPin" value="{{confirmPin}}" label-hint="Confirm PIN" required="true"
+      validators="[[confirmMpinValidator]]"></oj-input-password>
+  </oj-form-layout>
+
+  <!-- Buttons container -->
+  <div style="display:flex; justify-content:space-between; margin-top:20px;">
+    <!-- Back button on left -->
+    <oj-button data-bind="click: goToPreviousStep">Back</oj-button>
+
+    <!-- Submit button on right -->
+    <oj-button data-bind="click: createAccount" class="oj-button-primary" style="background:#1976d2">Submit</oj-button>
+  </div>
+
+  <span class="error-msg" data-bind="text: message"></span>
+</div>
+
+</div>
+
+
+
+</div>

@@ -10,21 +10,26 @@
 
 
         <!-- reCAPTCHA container -->
-    <div id="recaptcha-container" style="margin:15px 0; text-align:center;"></div>
+         
+    <div id="recaptcha-container" style="margin:10px 0; text-align:center;"></div>
 
+<p style="text-align:center;">
+    
+    <a href="?ojr=forgotpassword" style="color:#1976d2; text-decoration:underline;">Forgot Password?</a>
+  </p>
 
     <oj-button on-oj-action="[[login]]"
-      style="margin-top:20px; width:100%; background:#1976d2; color:white">
+      style="margin-top:10px; width:100%; background:#1976d2; color:white">
       Login
     </oj-button>
   </oj-form-layout>
 
   <div data-bind="if: message" style="margin-top:15px; text-align:center;">
-    <p data-bind="text: message" style="color: green; font-weight:500;"></p>
+    <p data-bind="text: message" style="color: red; font-weight:500;"></p>
   </div>
 
-  <p style="text-align:center; margin-top:10px;">
+  <p style="text-align:center;">
     Don’t have an account?
-    <a href="#/register" style="color:#1976d2; text-decoration:none;">Register here</a>
+    <a href="?ojr=register" style=" color:#1976d2; text-decoration:underline;">Register</a>
   </p>
 </div>
