@@ -1,90 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Transactions</title>
-  <!-- Oracle JET CSS & JS (replace with your actual JET paths) -->
-  <!-- Add this in your index.html head -->
-  <script src="js/libs/require/require.js"></script>
-  <script src="js/main.js"></script>
-</head>
-<body>
-  <!-- Transaction Container -->
-  <div id="transaction-container" style="max-width:600px; margin:40px auto; font-family:Arial, sans-serif;">
-    <!-- Title -->
-    <h2 style="text-align:center; color:#1976d2; margin-bottom:20px;">
-      :closed_lock_with_key: Transaction Portal
-    </h2>
-    <!-- From Account -->
-    <div style="margin-bottom:15px;">
-      <label for="fromAccountId" style="display:block; margin-bottom:5px; font-weight:bold;">From Account</label>
-      <input id="fromAccountId" type="text"
-             data-bind="value: fromAccountId"
-             placeholder="Enter From Account"
-             style="width:100%; padding:10px; border:1px solid #ccc; border-radius:5px;" />
-    </div>
+<div class="oj-hybrid-padding"
+  style="max-width:800px; margin:auto; padding:30px 90px; background:#fff; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1)">
+
+  <h2 style="text-align:center; color:#1976d2; margin-bottom:20px;">
+    🔐 Transaction
+  </h2>
+
+  <oj-form-layout max-columns="1" direction="row" class="oj-formlayout-full-width" user-assistance-density="compact">
+
     <!-- To Account -->
-    <div style="margin-bottom:15px;">
-      <label for="toAccountId" style="display:block; margin-bottom:5px; font-weight:bold;">To Account</label>
-      <input id="toAccountId" type="text"
-             data-bind="value: toAccountId"
-             placeholder="Enter To Account"
-             style="width:100%; padding:10px; border:1px solid #ccc; border-radius:5px;" />
-    </div>
+    <oj-input-text id="toAccountNumber" value="{{toAccountNumber}}" label-hint="Recipient Account Number"
+      required="true" placeholder="Enter Recipient Account Number">
+    </oj-input-text>
+
     <!-- Amount -->
-    <div style="margin-bottom:15px;">
-      <label for="amount" style="display:block; margin-bottom:5px; font-weight:bold;">Amount</label>
-      <input id="amount" type="number"
-             data-bind="value: amount"
-             placeholder="Enter Amount"
-             style="width:100%; padding:10px; border:1px solid #ccc; border-radius:5px;" />
-    </div>
-    <!-- Channel -->
-<div style="margin-bottom:15px;">
-  <label for="channel" style="display:block; margin-bottom:5px; font-weight:bold;">Channel</label>
-  <input id="channel" type="text"
-         data-bind="value: channel"
-         placeholder="Enter Channel"
-         style="width:100%; padding:10px; border:1px solid #ccc; border-radius:5px;" />
-</div>
-<!-- Description -->
-<div style="margin-bottom:15px;">
-  <label for="description" style="display:block; margin-bottom:5px; font-weight:bold;">Description</label>
-  <input id="description" type="text"
-         data-bind="value: description"
-         placeholder="Enter Description"
-         style="width:100%; padding:10px; border:1px solid #ccc; border-radius:5px;" />
-</div>
-    <!-- MPIN (Sensitive Text) -->
-    <div style="margin-bottom:20px;">
-      <oj-c-input-sensitive-text
-        id="enteredMpin"
-        value="{{enteredMpin}}"
-        label-hint="Enter MPIN"
-        style="width:100%;">
-      </oj-c-input-sensitive-text>
-    </div>
+    <oj-input-number value="{{amount}}" min="1" label-hint="Amount" required="true" placeholder="Enter Amount">
+    </oj-input-number>
+
+      <oj-input-password id="pin" value="{{mpin}}" label-hint="PIN" required="true"
+      validators="[[mpinValidator]]" placeholder="Enter 6-Digit PIN"></oj-input-password>
+    <!-- MPIN -->
+    <!-- <oj-input-text value="{{mpin}}" label-hint="PIN" required="true" placeholder="Enter 6-Digit PIN"> -->
+    </oj-input-text>
+
+    <!-- CAPTCHA Section with Banking Style -->
+    <div
+      style="margin-top: 20px; padding: 15px; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border-radius: 8px; border: 1px solid #cbd5e1;">
+      <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #334155; font-size: 14px;"> Security Verification
+      </label>
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;"> <canvas id="captchaCanvas"
+          width="200" height="70"
+          style="border: 2px solid #3b82f6; border-radius: 6px; background: #ffffff; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        </canvas>
+         <button type="button" data-bind="click: generateCaptcha"
+          style="padding: 8px 12px; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; transition: background 0.2s;"
+          onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'"> 🔄 Refresh
+        </button>
+       </div> 
+       <small style="color: #64748b; font-size: 12px; display: block; margin-bottom: 8px;"> *This helps us verify you are not a robot</small>
+
+    </div> <!-- CAPTCHA Input -->
+     <oj-input-text id="captchaInput" value="{{captchaInput}}" label-hint="Captcha "
+      required="true" placeholder="Type characters from image"> </oj-input-text>
     <!-- Submit Button -->
-    <div style="text-align:center;">
-      <button data-bind="click: submitTransaction"
-              style="padding:12px 25px; background:#1976d2; color:white; border:none; border-radius:5px; font-size:16px; cursor:pointer;">
-        Submit
-      </button>
-    </div>
+    <oj-button on-oj-action="[[submitTransaction]]" disabled="[[isProcessing]]"
+
+      style="margin-top:10px; width:100%; background:#1976d2; color:white;">
+      <span data-bind="text: isProcessing() ? 'Processing...' : 'Submit'"></span>
+    </oj-button>
+
+  </oj-form-layout>
+
+  <div data-bind="if: message" style="margin-top:15px; text-align:center;">
+    <p data-bind="text: message" style="color:red; font-weight:500;"></p>
   </div>
-  <!-- Load ViewModel -->
-  <script>
-    require(['ojs/ojbootstrap', 'knockout', 'transactions'],
-      function (Bootstrap, ko, TransactionsViewModel) {
-        Bootstrap.whenDocumentReady().then(function () {
-          var vm = new TransactionsViewModel();
-          ko.applyBindings(vm, document.getElementById('transaction-container'));
-        });
-      });
-  </script>
-</body>
-</html>
+</div>
+
+<oj-dialog id="transactionSuccessDialog" title="Transaction Deatails">
+  <div style="padding: 0px; text-align: center;">
+    <!-- <p>Transaction Deatails</p> -->
+    <p>Reference ID: <span data-bind="text: transactionRefId"></span></p>
+    <p>Amount: ₹<span data-bind="text: modalAmount"></span></p>
+<p>To Account Number: <span data-bind="text: modalToAccount"></span></p>
+<p> Transaction Status: <span data-bind="text: modalStatus"></span></p>
+
+  </div>
+  <oj-dialog-footer style="display:flex; justify-content:flex-end;">
+  <oj-button on-oj-action="[[closeSuccessDialog]]">
+    Continue
+  </oj-button>
+</oj-dialog-footer>
 
 
+</oj-dialog>
 
+<oj-dialog id="invalidMpinDialog" title="Authentication Failed">
+  <div style="padding:20px; text-align:center; color:#b91c1c;">
+    <p>❌ Incorrect MPIN. Please try again.</p>
+  </div>
+  <oj-dialog-footer style="display:flex; justify-content:flex-end;">
+    <oj-button on-oj-action="[[closeInvalidMpinDialog]]">
+      Close
+    </oj-button>
+  </oj-dialog-footer>
+</oj-dialog>
 

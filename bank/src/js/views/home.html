@@ -1,8 +1,8 @@
-<div style="max-width:900px; margin:auto; padding:20px; font-family:Arial, sans-serif;">
+<div   style="max-width:850px; margin:auto; padding:30px; background:#fff; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1)">
   <!-- Top Bar -->
   <div
     style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; background:#1976d2; color:white; padding:15px; border-radius:10px;">
-    <h2 style="margin:0; font-size:24px;">🏦 MyBank Dashboard</h2>
+    <h2 style="margin:0; font-size:24px;">🏦 Dashboard</h2>
     <div style="font-size:16px;">
       Welcome, <span data-bind="text: username"></span> 👋
     </div>
@@ -14,16 +14,40 @@
   <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:20px;">
 
     <!-- Set MPIN -->
-    <a href="/?ojr=set-mpin" class="option-card">
+    <!-- <a href="/?ojr=set-mpin" class="option-card">
       <div style="font-size:40px; text-align:center;">🔑</div>
       <div style="text-align:center; font-weight:bold; margin-top:10px;">Set MPIN</div>
-    </a>
+    </a> -->
+
+    <a href="/?ojr=profile" class="option-card">
+  <div style="font-size:40px; text-align:center;">👤</div>
+  <div style="text-align:center; font-weight:bold; margin-top:10px;">Profile</div>
+</a>
+
 
     <!-- Create Account -->
     <a href="/?ojr=create-account" class="option-card">
       <div style="font-size:40px; text-align:center;">📝</div>
       <div style="text-align:center; font-weight:bold; margin-top:10px;">Create Account</div>
     </a>
+    <!-- Update Password -->
+    <a href="/?ojr=update-password" class="option-card">
+      <div style="font-size:40px; text-align:center;">🔒</div>
+      <div style="text-align:center; font-weight:bold; margin-top:10px;">Update Password</div>
+    </a>
+
+    <!-- Reset MPIN -->
+    <a href="/?ojr=reset-pin" class="option-card">
+      <div style="font-size:40px; text-align:center;">🔁</div>
+      <div style="text-align:center; font-weight:bold; margin-top:10px;">Reset MPIN</div>
+    </a>
+
+    <!-- Check Balance -->
+<a href="/?ojr=check-balance" class="option-card">
+  <div style="font-size:40px; text-align:center;">💰</div>
+  <div style="text-align:center; font-weight:bold; margin-top:10px;">Check Balance</div>
+</a>
+
 
     <!-- Make Transaction -->
     <a href="/?ojr=transaction" class="option-card">

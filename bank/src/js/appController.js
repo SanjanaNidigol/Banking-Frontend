@@ -50,7 +50,12 @@ define(['knockout', 'ojs/ojcontext', 'ojs/ojmodule-element-utils', 'ojs/ojknocko
         { path: 'forgotpassword', detail: { label: 'Forgot Password', iconClass:'oj-ux-ico-bar-chart'}},
         { path: 'transaction', detail: { label: 'Transaction', iconClass:'oj-ux-ico-bar-chart'}},
         { path: 'transaction-history', detail: { label: 'Transaction History', iconClass:'oj-ux-ico-bar-chart'}},
-        { path: 'create-account', detail: { label: 'Create Account', iconClass:'oj-ux-ico-bar-chart'}}
+        { path: 'create-account', detail: { label: 'Create Account', iconClass:'oj-ux-ico-bar-chart'}},
+        { path: 'reset-pin', detail: { label: 'Reset Pin', iconClass:'oj-ux-ico-bar-chart'}},
+        { path: 'update-password', detail: { label: 'Update Password', iconClass:'oj-ux-ico-bar-chart'}},
+        { path: 'check-balance', detail: { label: 'Check Balance', iconClass:'oj-ux-ico-bar-chart'}},
+        { path: 'profile', detail: { label: 'Profile', iconClass:'oj-ux-ico-bar-chart'}}
+        
         // { path: 'forgotpassword', detail: { label: 'Forgot Password', iconClass: 'oj-ux-ico-information-s' } },
       ];
 
@@ -87,7 +92,7 @@ define(['knockout', 'ojs/ojcontext', 'ojs/ojmodule-element-utils', 'ojs/ojknocko
 
       // Header
       // Application Name used in Branding Area
-      this.appName = ko.observable("App Name");
+      this.appName = ko.observable("Unbroke Bank");
       // User Info used in Global Navigation area
       this.userLogin = ko.observable("john.hancock@oracle.com");
 

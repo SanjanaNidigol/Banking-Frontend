@@ -45,46 +45,62 @@ define([
     self.message = ko.observable('');
     self.error = ko.observable('');
 
-     self.passwordsMatch = ko.computed(function() {
-      return self.password() === self.confirmPassword() && 
-             self.password() !== '' && 
-             self.confirmPassword() !== '';
+    self.passwordsMatch = ko.computed(function () {
+      return self.password() === self.confirmPassword() &&
+        self.password() !== '' &&
+        self.confirmPassword() !== '';
     });
 
-    self.passwordMatchError = ko.computed(function() {
+    self.passwordMatchError = ko.computed(function () {
       if (self.confirmPassword() === '') return '';
       return self.passwordsMatch() ? '' : 'Passwords do not match';
     });
 
     // Disable submit button if passwords don't match
-    self.canSubmit = ko.computed(function() {
+    self.canSubmit = ko.computed(function () {
       return self.passwordsMatch() && self.isLastStep();
     });
 
-    self.beforeSelectStep = function(event) {
-  const nextStep = event.detail.value; // Step user clicked
-  const currentStepId = self.currentStep();
+    self.beforeSelectStep = function (event) {
+      const nextStep = event.detail.value; // Step user clicked
+      const currentStepId = self.currentStep();
 
-  // Only block if moving forward
-  const currentIndex = self.trainSteps.findIndex(s => s.id === currentStepId);
-  const nextIndex = self.trainSteps.findIndex(s => s.id === nextStep);
+      // Only block if moving forward
+      const currentIndex = self.trainSteps.findIndex(s => s.id === currentStepId);
+      const nextIndex = self.trainSteps.findIndex(s => s.id === nextStep);
 
-  if (nextIndex > currentIndex) {
-    const groupId = currentStepId + 'Group';
-    const groupElem = document.getElementById(groupId);
+      if (nextIndex > currentIndex) {
+        const groupId = currentStepId + 'Group';
+        const groupElem = document.getElementById(groupId);
 
-    if (groupElem) {
-      // This will trigger validation
-      groupElem.validate();
-      const tracker = groupElem.valid === 'valid' ? 'valid' : 'invalid';
+        if (groupElem) {
+          // This will trigger validation
+          groupElem.validate();
+          const tracker = groupElem.valid === 'valid' ? 'valid' : 'invalid';
 
-      if (tracker !== 'valid') {
-        event.preventDefault(); // stop the train navigation
-        self.message("Please complete current step before moving forward");
+          if (tracker !== 'valid') {
+            event.preventDefault(); // stop the train navigation
+            self.message("Please complete current step before moving forward");
+          }
+        }
       }
-    }
-  }
-};
+    };
+
+    self.nameValidator = [
+      new RegExpValidator({
+        pattern: "^[a-zA-Z\\s]{1,50}$",
+        hint: "",
+        messageDetail: "Name can only contain letters and spaces."
+      })
+    ];
+
+    self.pinCodeValidator = [
+  new RegExpValidator({
+    pattern: "^\\d{6}$",
+    hint: "Enter a 6-digit PIN code",
+    messageDetail: "PIN code must be exactly 6 digits."
+  })
+];
 
 
     self.mobileValidator = [
@@ -118,15 +134,20 @@ define([
       })
     ];
 
-     self.confirmPasswordValidator = [
-      new RegExpValidator({
-        pattern: this.password,
-        // hint: "P",
-        messageSummary: "Invalid Password",
-        messageDetail:
-          "Password doesn't match"
-      })
+    self.confirmPasswordValidator = [
+      {
+        validate: function (value) {
+          if (value !== self.password()) {
+            throw new Error("Passwords do not match");
+          }
+          return true; // valid
+        },
+        hint: "Re-enter the same password",
+        messageSummary: "Passwords do not match",
+        messageDetail: "Confirm password must match the password"
+      }
     ];
+
     // self.mpinValidator = [
     //   new RegExpValidator({
     //     pattern: "^\\d{6}$",
@@ -147,7 +168,7 @@ define([
     self.trainSteps = [
       { id: 'personal', label: 'Personal Info' },
       { id: 'addressFinish', label: 'Address Info' },
-      { id: 'accountSecurity', label: 'Account & Security' }
+      { id: 'accountSecurity', label: 'Set Password' }
     ];
     self.currentStep = ko.observable('personal');
 
@@ -192,11 +213,11 @@ define([
     };
 
 
-    
+
     self.submitForm = async function () {
-       self.message('');
+      self.message('');
       self.error('');
- if (!self.passwordsMatch()) {
+      if (!self.passwordsMatch()) {
         self.error("Passwords do not match. Please check and try again.");
         return;
       }
@@ -231,10 +252,10 @@ define([
         gender: self.selectedGender()
       };
 
-       if (self.password() !== self.confirmPassword()) {
-                self.error("Passwords do not match.");
-                return;
-            }
+      if (self.password() !== self.confirmPassword()) {
+        self.error("Passwords do not match.");
+        return;
+      }
       console.log("Payload to send:", payload);
       self.message("Sending registration request...");
 
@@ -249,8 +270,8 @@ define([
         console.log("API response status:", response.status);
         console.log("API response text:", responseText);
 
-        
-        
+
+
         console.log("Trying to navigate to login page...");
         console.log("CoreRouter.instance:", CoreRouter.instance);
 

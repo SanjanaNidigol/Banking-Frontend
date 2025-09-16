@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <title>Unbroke Bank</title>
+  
+  <!-- Browser tab icon -->
+  <link rel="icon" type="image/png" href="css/images/app_logo.png" />
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Theme placeholder for Oracle JET -->
+  <!-- injector:theme -->
+  <!-- endinjector -->
+<link rel="icon" type="image/png" href="css/images/app_logo.png" />
+
+  <!-- Your custom styles -->
+  <link rel="stylesheet" href="css/app.css" type="text/css" />
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+  <style>
+    /* Simple nav bar styling */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #004aad;
+      color: white;
+      padding: 10px 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    nav .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    nav .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    nav ul {
+      list-style-type: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      margin-left: 20px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body class="oj-web-applayout-body">
+  <div id="globalBody">
+
+    <!-- Navigation Bar -->
+    <nav>
+      <div class="logo">
+        <img src="css/images/app_logo.png" alt="Unbroke Bank Logo">
+        <span>Unbroke Bank ;/'n' Your money is safe with us. We checked.</span>
+      </div>
+      <!-- <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Accounts</a></li>
+        <li><a href="#">Transactions</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Logout</a></li>
+      </ul> -->
+    </nav>
+
+    <!-- Main content rendered via oj-module -->
+    <oj-module role="main" class="oj-web-applayout-content"
+      config="[[moduleAdapter.koObservableConfig]]">
+    </oj-module>
+
+  </div>
+
+  <!-- Script placeholder for Oracle JET -->
+  <!-- injector:scripts -->
+  <!-- endinjector -->
+</body>
+
+</html>

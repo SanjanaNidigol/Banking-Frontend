@@ -1,7 +1,7 @@
 <div class="oj-hybrid-padding"
   style="max-width:750px; margin:auto;  padding:10px 25px 0px 25px; background:#fff; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1)">
 
-  <h3 style="text-align:center; color:#2c3e50; margin-bottom:0px">Create Your SmartBank Profile</h3>
+  <h3 style="text-align:center; color:#2c3e50; margin-bottom:0px">Create Your Unbroke Bank Profile</h3>
 
   <!-- oj-train navigation -->
   <oj-train id="train" steps="[[trainSteps]]" selected-step="{{currentStep}}"></oj-train>
@@ -14,10 +14,10 @@
       >
       <!-- class="oj-formlayout-full-width" user-assistance-density="compact" -->
 
-        <oj-input-text value="{{username}}" label-hint="Username" required="true"></oj-input-text>
+        <oj-input-text value="{{username}}"  label-hint="Username" required="true"></oj-input-text>
         <oj-input-text value="{{pan}}" label-hint="PAN" required validators="[[panValidators]]"></oj-input-text>
-        <oj-input-text value="{{firstName}}" label-hint="First Name" required="true"></oj-input-text>
-        <oj-input-text value="{{lastName}}" label-hint="Last Name" required="true"></oj-input-text>
+        <oj-input-text value="{{firstName}}" validators="[[nameValidator]]" label-hint="First Name" required="true"></oj-input-text>
+        <oj-input-text value="{{lastName}}" validators="[[nameValidator]]" label-hint="Last Name" required="true"></oj-input-text>
         <oj-input-text value="{{mobile}}" label-hint="Mobile Number" required="true"
           validators="[[mobileValidator]]"></oj-input-text>
         <oj-input-text value="{{email}}" label-hint="Email" required="true"
@@ -35,7 +35,7 @@
       <oj-form-layout max-columns="2" direction="row">
         <oj-input-text value="{{address}}" label-hint="Address" required="true"></oj-input-text>
         <oj-input-text value="{{state}}" label-hint="State" required="true"></oj-input-text>
-        <oj-input-text value="{{pincode}}" label-hint="Pincode" required="true"></oj-input-text>
+        <oj-input-text value="{{pincode}}" validators="[[pinCodeValidator]]" label-hint="Pincode" required="true"></oj-input-text>
         <oj-input-text value="{{country}}" label-hint="Country" required="true"></oj-input-text>
       </oj-form-layout>
     </oj-validation-group>

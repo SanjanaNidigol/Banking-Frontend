@@ -1,35 +1,86 @@
-<div class="oj-hybrid-padding" style="max-width:900px; margin:auto;">
-  <h2 style="color:#1976d2; margin-bottom:20px;">📜 Transaction History</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Transaction History</title>
+  <meta charset="utf-8"/>
+  <link rel="stylesheet"  type="text/css"/>
+  <script src="js/libs/jquery/jquery-3.6.0.min.js"></script>
+  <script src="js/libs/oj/v11.1.0/debug/ojdebug.js"></script>
 
-  <!-- JET Table -->
-  <oj-table
-    aria-label="Transaction History"
-    data="[[transactionsDataProvider]]"
-    selection-mode.row="single"
-    style="width:100%; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.1)">
+  <style>
+    h2 {
+      color: #0a3d91; /* SBI Blue */
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+     .txn-header {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #0b5fa4; /* SBI-like blue */
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+     .txn-history-container {
+      margin: 20px auto;
+      max-width: 1000px;
+    }
+
+    .credit {
+      color: green;
+      font-weight: 600;
+    }
+
+    .debit {
+      color: red;
+      font-weight: 600;
+    }
+
+    #transactionTable {
+      border: 1px solid #ccc;
+    }
+      /* .demo-table-container {
+    width: 100%;
+    height: 27rem;
+  } */
+
+
+    /* .oj-table-header-cell {
+      background-color: #0a3d91 !important;
+      color: white !important;
+      font-weight: bold;
+      text-align: center;
+    }
+      
+
+    .oj-table-body-cell {
+      text-align: center;
+    } */
+  </style>
+</head>
+<body class="oj-web-applayout-body" >
+  <div id="transactionHistory" class="oj-web-applayout-page">
     
-    <oj-table-column header-text="Date" sort="enabled">
-      <template slot="cellTemplate" data-oj-as="cell">
-        <span data-bind="text: cell.data"></span>
-      </template>
-    </oj-table-column>
+    <!-- <h2>Transaction History</h2> -->
+     <div class="txn-header">Transaction History</div>
 
-    <oj-table-column header-text="Type" sort="enabled">
-      <template slot="cellTemplate" data-oj-as="cell">
-        <span data-bind="text: cell.data"></span>
-      </template>
-    </oj-table-column>
 
-    <oj-table-column header-text="Amount" sort="enabled">
-      <template slot="cellTemplate" data-oj-as="cell">
-        <span data-bind="text: cell.data"></span>
-      </template>
-    </oj-table-column>
+    <oj-table id="txnTable"
+    class="demo-table-container"
+              aria-label="Transaction History Table"
+              data="[[dataProvider]]"
+              columns='[
+                {"headerText": "Date & Time", "field": "formattedDate"},
+                {"headerText": "Account Number", "field": "toAccountNumber"},
+                {"headerText": "Type", "field": "type"},
+                {"headerText": "Amount (INR)", "field": "amount"},
+                {"headerText": "Status", "field": "status"}
+              ]'
+              display="grid"
+              style="width:100%;">
+    </oj-table>
+  </div>
 
-    <oj-table-column header-text="Balance" sort="enabled">
-      <template slot="cellTemplate" data-oj-as="cell">
-        <span data-bind="text: cell.data"></span>
-      </template>
-    </oj-table-column>
-  </oj-table>
-</div>
+</body>
+</html>

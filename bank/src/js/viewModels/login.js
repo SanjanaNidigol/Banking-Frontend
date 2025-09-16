@@ -14,6 +14,7 @@ define([
     self.identifier = ko.observable('');
     self.password = ko.observable('');
     self.message = ko.observable('');
+    self.messageColor = ko.observable("red");
     self.captchaWidgetId = null;
 
     // Initialize CAPTCHA when the view is loaded
@@ -90,6 +91,7 @@ define([
         sessionStorage.setItem("role", data.role)
 
         self.message("Logged in successfully!");
+        self.messageColor("green");
 
         // if (CoreRouter.instance) {
         //             CoreRouter.instance.go({ path: "dashboard" });

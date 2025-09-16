@@ -5,6 +5,34 @@
     Description:
         This is where any of your application specific styles should be included
 */
+/* Navbar styling */
+.app-navbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #004aad; /* Dark blue, change as needed */
+  color: white;
+}
+
+.back-button {
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.app-logo {
+  height: 40px;
+  width: 40px;
+  margin-right: 10px;
+}
+
+.app-title {
+  font-size: 20px;
+  font-weight: bold;
+}
 
 .send-off-screen {
   position: absolute;

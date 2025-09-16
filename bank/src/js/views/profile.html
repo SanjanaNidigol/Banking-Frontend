@@ -1,0 +1,27 @@
+<div   style="max-width:850px; margin:auto; padding:30px; background:#fff; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1)">
+
+  <!-- Page Title -->
+  <div style="margin-bottom:30px; background:#1976d2; color:white; padding:15px; border-radius:10px;">
+    <h2 style="margin:0; font-size:24px;">👤 Profile</h2>
+  </div>
+
+  <!-- Profile Details -->
+  <div style="background:#F5F5F5; padding:20px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1);">
+    <div style="margin-bottom:15px;"><strong>Full Name:</strong> <span data-bind="text: fullName"></span></div>
+    <div style="margin-bottom:15px;"><strong>Username:</strong> <span data-bind="text: username"></span></div>
+    <div style="margin-bottom:15px;"><strong>Email:</strong> <span data-bind="text: email"></span></div>
+    <div style="margin-bottom:15px;"><strong>Mobile:</strong> <span data-bind="text: mobile"></span></div>
+    <div style="margin-bottom:15px;"><strong>Date of Birth:</strong> <span data-bind="text: dob"></span></div>
+    <div style="margin-bottom:15px;"><strong>PAN:</strong> <span data-bind="text: pan"></span></div>
+    <div style="margin-bottom:15px;"><strong>Address:</strong> <span data-bind="text: address"></span>, 
+      <span data-bind="text: state"></span> - <span data-bind="text: pincode"></span>, <span data-bind="text: country"></span>
+    </div>
+    <div style="margin-bottom:15px;"><strong>Gender:</strong> <span data-bind="text: gender"></span></div>
+    <div style="margin-bottom:15px;"><strong>Account Status:</strong> <span data-bind="text: accountStatus"></span></div>
+  </div>
+
+  <!-- Back Button -->
+  <div style="margin-top:20px;">
+    <oj-button on-oj-action="[[goBack]]">← Back to Dashboard</oj-button>
+  </div>
+</div>

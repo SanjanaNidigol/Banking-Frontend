@@ -1,0 +1,46 @@
+<div style="max-width:700px; margin:auto; padding:100px 50px 170px 50px; background:#fff; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1)">
+  <h2 style="text-align:center; margin-bottom:20px;">💰 Check Balance</h2>
+
+  <!-- Step 1: Enter MPIN -->
+  <div data-bind="if: currentStep() === 'verify'">
+    <div style="text-align:center; margin-bottom:20px;">
+      <p>Enter your 6-digit PIN</p>
+    </div>
+
+    <div style="display:flex; justify-content:center; gap:10px; margin-bottom:15px;">
+      <input type="password" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-box" data-bind="value: mpin1, event: { keyup: moveNext }">
+      <input type="password" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-box" data-bind="value: mpin2, event: { keyup: moveNext }">
+      <input type="password" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-box" data-bind="value: mpin3, event: { keyup: moveNext }">
+      <input type="password" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-box" data-bind="value: mpin4, event: { keyup: moveNext }">
+      <input type="password" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-box" data-bind="value: mpin5, event: { keyup: moveNext }">
+      <input type="password" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-box" data-bind="value: mpin6, event: { keyup: moveNext }">
+    </div>
+
+    <oj-button on-oj-action="[[verifyMpin]]"
+      style="width:50%; margin:auto; display:block; background:#1976d2; color:white;">
+      Verify PIN
+    </oj-button>
+
+    <p data-bind="text: errorMessage" style="color:red; text-align:center; margin-top:10px;"></p>
+  </div>
+
+  <!-- Step 2: Show Balance -->
+  <div data-bind="if: currentStep() === 'balance'">
+    <div style="background:#F5F5F5; padding:30px; border-radius:12px; color:green;text-align:center; box-shadow:0 4px 10px rgba(0,0,0,0.1);">
+      <!-- <p style="font-size:18px;">Account ID: <span data-bind="text: accountId"></span></p> -->
+      <p style="font-size:24px; font-weight:bold;">Available Balance: <span data-bind="text: balance"></span></p>
+      <!-- <oj-button on-oj-action="[[refreshBalance]]" style="margin-top:15px;">Refresh Balance</oj-button> -->
+    </div>
+  </div>
+</div>
+
+<style>
+.otp-box {
+  width:40px;
+  height:40px;
+  font-size:24px;
+  text-align:center;
+  border-radius:5px;
+  border:1px solid #ccc;
+}
+</style>

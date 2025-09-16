@@ -1,0 +1,24 @@
+<div  style="max-width:450px; margin:auto; padding:30px; background:#fff; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1)">
+  <h2>🔁 Reset PIN</h2>
+  <oj-form-layout direction="column" max-columns="1">
+    <oj-input-password id="oldMpin" value="{{oldMpin}}" 
+               label-hint="Current PIN" placeholder="Enter your current PIN"></oj-input-password>
+
+<oj-input-password id="newMpin" value="{{newMpin}}" 
+               label-hint="Enter New PIN" placeholder="Enter your new PIN"
+               validators="[[mpinValidator]]"></oj-input-password>
+
+<oj-input-password id="confirmMpin" value="{{confirmMpin}}" 
+               label-hint="Confirm New PIN" 
+               validators="[[confirmMpinValidator]]"></oj-input-password>
+
+  </oj-form-layout>
+
+  <div style="margin-top:20px; text-align:center;">
+    <oj-button on-oj-action="[[resetMpin]] ">Submit</oj-button>
+  </div>
+
+  <div data-bind="visible: message" style="margin-top:15px; text-align:center;">
+    <span data-bind="text: message, style: { color: messageColor }"></span>
+  </div>
+</div>

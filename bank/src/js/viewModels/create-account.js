@@ -99,7 +99,7 @@ define([
 
         {
           validate: function(value) {
-            console.log('🔍 Custom validator - comparing:', value, 'with:', currentPin);
+            // console.log('🔍 Custom validator - comparing:', value, 'with:', currentPin);
             if (value && currentPin && value !== currentPin) {
               throw new Error("PINs do not match");
             }
@@ -162,9 +162,16 @@ define([
       console.log('Train step changed to:', event.detail.value);
       self.stepValue(event.detail.value);
     };
+    self.isPinFormValid = ko.computed(function() {
+    return self.pin() && self.confirmPin() && self.pin() === self.confirmPin();
+});
 
     self.createAccount = function() {
       // console.log('Creating account...');
+        if (!self.isPinFormValid()) {
+        self.message("Please ensure both PINs are entered and match.");
+        return; // Stop execution
+    }
       var userId = sessionStorage.getItem('userId');
       if (!userId) {
         self.message('Please login first.');

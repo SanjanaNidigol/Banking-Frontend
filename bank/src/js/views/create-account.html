@@ -1,6 +1,6 @@
 <style>
   .form-card {
-    max-width: 450px;
+    max-width: 550px;
     margin: 50px auto;
     padding: 30px;
     background: #fff;
@@ -46,7 +46,16 @@
     <oj-select-single id="accountTypeSelect" label-hint="Account Type" data="[[accountTypeDataProvider]]"
       value="{{selectedAccountType}}" required="true">
     </oj-select-single>
-    <oj-input-number value="{{balance}}" label-hint="Initial Balance (Optional)"></oj-input-number>
+    <oj-label for="balanceInput">
+  Initial Deposit <br> (Minimum ₹1000)
+</oj-label>
+<oj-input-number 
+  id="balanceInput"
+  value="{{balance}}" 
+  min="1000"
+  required="true">
+</oj-input-number>
+    <!-- <oj-input-number value="{{balance}}" label-hint="Initial Deposit(Minimum 1000)"></oj-input-number> -->
   </oj-form-layout>
 
   <!-- Buttons container with flex -->
@@ -72,8 +81,9 @@
     <!-- Back button on left -->
     <oj-button data-bind="click: goToPreviousStep">Back</oj-button>
 
+    <oj-button data-bind="click: createAccount, disabled: !isPinFormValid()" class="oj-button-primary">Submit</oj-button>
     <!-- Submit button on right -->
-    <oj-button data-bind="click: createAccount" class="oj-button-primary" style="background:#1976d2">Submit</oj-button>
+    <!-- <oj-button data-bind="click: createAccount" class="oj-button-primary" style="background:#1976d2">Submit</oj-button> -->
   </div>
 
   <span class="error-msg" data-bind="text: message"></span>

@@ -1,6 +1,6 @@
 <div class="oj-hybrid-padding"
   style="max-width:450px; margin:auto; padding:30px; background:#fff; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1)">
-  <h2 style="text-align:center; color:#2c3e50; margin-bottom:20px">Smart Bank – Login</h2>
+  <h2 style="text-align:center; color:#2c3e50; margin-bottom:20px">Login</h2>
 
   <oj-form-layout max-columns="1" direction="row" class="oj-formlayout-full-width" user-assistance-density="compact">
 
@@ -24,9 +24,10 @@
     </oj-button>
   </oj-form-layout>
 
-  <div data-bind="if: message" style="margin-top:15px; text-align:center;">
-    <p data-bind="text: message" style="color: red; font-weight:500;"></p>
-  </div>
+ <div data-bind="if: message" style="margin-top:15px; text-align:center;">
+  <p data-bind="text: message, style: { color: messageColor }, css: 'fw-500'"></p>
+</div>
+
 
   <p style="text-align:center;">
     Don’t have an account?
